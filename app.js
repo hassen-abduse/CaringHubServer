@@ -52,6 +52,10 @@ app.use('/applications', appsRouter)
 app.use('/helps', helpsRouter)
 app.use('/projects', projectsRouter)
 
+app.get('/login', (req, res) => {
+  res.render('index', { title: 'Express' })
+})
+
 app.post('/login', (req, res, next) => {
   passport.authenticate(['user-local', 'vol-local', 'org-local'], (err, user, info) => {
     const error = err || info
