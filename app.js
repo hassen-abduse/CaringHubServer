@@ -65,7 +65,7 @@ app.post('/login', (req, res, next) => {
       const token = auth.getToken({ _id: req.user._id })
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
-      res.json({ success: true, token: token, role: req.user.role, status: 'Login Success!' })
+      res.json({ success: true, token: token, Role: req.user.role, userId: req.user._id, status: 'Login Success!' })
     })
   })(req, res, next)
 })
