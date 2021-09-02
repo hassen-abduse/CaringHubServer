@@ -16,12 +16,6 @@ volunteersRouter.route('/')
       .catch((err) => next(err))
   })
 
-
-  .put((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
-
   .delete((req, res, next) => {
     Volunteer.remove({})
       .then((resp) => {
@@ -43,10 +37,6 @@ volunteersRouter.route('/:volId')
       .catch((err) => next(err))
   })
 
-  .post((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
 
   .put((req, res, next) => {
     // Update a Volunteer's Account
