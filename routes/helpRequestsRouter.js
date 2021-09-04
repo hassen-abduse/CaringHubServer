@@ -25,11 +25,6 @@ requestsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .put((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
-
   .delete((req, res, next) => {
     HelpRequests.remove({})
       .then((resp) => {
@@ -51,10 +46,6 @@ requestsRouter.route('/:requestId')
       .catch((err) => next(err))
   })
 
-  .post((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
 
   .put((req, res, next) => {
     HelpRequests.findByIdAndUpdate(req.params.requestId, {

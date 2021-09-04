@@ -25,11 +25,6 @@ projectsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .put((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
-
   .delete((req, res, next) => {
     Projects.remove({})
       .then((resp) => {
@@ -50,11 +45,6 @@ projectsRouter.route('/:projectId')
         res.json(project)
       }, (err) => next(err))
       .catch((err) => next(err))
-  })
-
-  .post((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
   })
 
   .put((req, res, next) => {

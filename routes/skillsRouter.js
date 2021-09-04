@@ -23,10 +23,7 @@ skillsRouter.route('/')
       }, (err) => next(err))
       .catch((err) => next(err))
   })
-  .put((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
+
   .delete((req, res, next) => {
     Skills.remove({})
       .then((resp) => {
@@ -46,10 +43,7 @@ skillsRouter.route('/:skillId')
       }, (err) => next(err))
       .catch((err) => next(err))
   })
-  .post((req, res, next) => {
-    res.statusCode = 403
-    res.end('Error! Operation Not Supported!')
-  })
+
   .put((req, res, next) => {
     Skills.findByIdAndUpdate(req.params.skillId, { $set: req.body }, { new: true })
       .then((skill) => {

@@ -29,6 +29,13 @@ const Volunteer = new Schema({
     unique: true,
     required: true
   },
+  profilePicture: {
+    type: String,
+    
+  },
+  resume: {
+    type: String
+  },
   skillSets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
 
   causeAreas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cause' }]

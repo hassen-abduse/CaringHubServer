@@ -2,6 +2,7 @@ const express = require('express')
 const Volunteer = require('../models/volunteers')
 const volunteersRouter = express.Router()
 const passport = require('passport')
+const uploads = require('./uploads')
 
 volunteersRouter.use(express.json())
 
@@ -75,18 +76,35 @@ volunteersRouter.post('/register', (req, res, next) => {
     causeAreas: req.body.causeAreas
 
   }),
-  req.body.password, (err, user) => {
-    if (err) {
-      res.statusCode = 500
-      res.setHeader('Content-Type', 'application/json')
-      res.json({ err: err })
-    } else {
-      passport.authenticate('vol-local')(req, res, () => {
-        res.statusCode = 200
+    req.body.password, (err, user) => {
+      if (err) {
+        res.statusCode = 500
         res.setHeader('Content-Type', 'application/json')
-        res.json({ success: true, status: 'Registration Successful!' })
-      })
+        res.json({ err: err })
+      } else {
+        passport.authenticate('vol-local')(req, res, () => {
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/json')
+          res.json({ success: true, status: 'Registration Successful!' })
+        })
+      }
+    })
+})
+
+volunteersRouter.put('/uploadPic', uploads.imageUpload, (req, res, next) => {
+
+  const path = req.file.path.replace(/\\/g, '/')
+  Volunteer.findByIdAndUpdate(req.user._id, {
+    $set: {
+      profilePicture: path
     }
-  })
+  }, { new: true })
+    .then((vol) => {
+      res.statusCode = 200
+      res.setHeader('Content-Type', 'application/json')
+      res.json(vol)
+    }, (err) => next(err))
+    .catch((err) => next(err))
+
 })
 module.exports = volunteersRouter

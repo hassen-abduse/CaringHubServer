@@ -28,7 +28,11 @@ const User = new Schema({
   address: {
     type: Map,
     required: true
-  }
+  },
+  ProfilePicture: {
+    type: String,
+    
+  },
 
 }, {
   timestamps: true

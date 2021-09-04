@@ -27,6 +27,10 @@ const projectSchema = new Schema({
     type: Map,
     required: true
   },
+  image: {
+    type: String,
+    required: true
+  },
   skillSets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
 
   causeAreas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cause' }]
