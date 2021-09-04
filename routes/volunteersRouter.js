@@ -94,7 +94,7 @@ volunteersRouter.post('/register', (req, res, next) => {
 
 volunteersRouter.route('/uploadPic')
   .put(uploads.imageUpload, (req, res, next) => {
-    const path = 'https://caringhub.herokuapp.com' + req.file.path.replace(/\\/g, '/')
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     Volunteer.findByIdAndUpdate(req.user._id, {
       $set: {
         profilePicture: path
