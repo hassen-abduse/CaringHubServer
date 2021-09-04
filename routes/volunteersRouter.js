@@ -91,20 +91,20 @@ volunteersRouter.post('/register', (req, res, next) => {
     })
 })
 
-volunteersRouter.put('/uploadPic', uploads.imageUpload, (req, res, next) => {
+volunteersRouter.route('/uploadPic')
+  .put(uploads.imageUpload, (req, res, next) => {
+    const path = req.file.path.replace(/\\/g, '/')
+    Volunteer.findByIdAndUpdate(req.user._id, {
+      $set: {
+        profilePicture: path
+      }
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
 
-  const path = req.file.path.replace(/\\/g, '/')
-  Volunteer.findByIdAndUpdate(req.user._id, {
-    $set: {
-      profilePicture: path
-    }
-  }, { new: true })
-    .then((vol) => {
-      res.statusCode = 200
-      res.setHeader('Content-Type', 'application/json')
-      res.json(vol)
-    }, (err) => next(err))
-    .catch((err) => next(err))
-
-})
 module.exports = volunteersRouter
