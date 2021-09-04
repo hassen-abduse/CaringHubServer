@@ -57,7 +57,7 @@ orgLogoUpload.use(express.json())
 projectImageUpload.use(express.json())
 
 volImageUpload.route('/')
-  .put(auth.verifyVol, imageUpload, (req, res, next) => {
+  .put(auth.verifyVol, imageUpload.single('imageUpload'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     Volunteer.findByIdAndUpdate(req.user._id, {
       $set: {
@@ -73,7 +73,7 @@ volImageUpload.route('/')
   })
 
 userImageUpload.route('/')
-  .put(auth.verifyUser, imageUpload, (req, res, next) => {
+  .put(auth.verifyUser, imageUpload.single('imageUpload'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     Users.findByIdAndUpdate(req.user._id, {
       $set: {
@@ -89,7 +89,7 @@ userImageUpload.route('/')
   })
 
 orgLogoUpload.route('/')
-  .put(auth.verifyOrg, imageUpload, (req, res, next) => {
+  .put(auth.verifyOrg, imageUpload.single('imageUpload'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     Organization.findByIdAndUpdate(req.user._id, {
       $set: {
@@ -104,7 +104,7 @@ orgLogoUpload.route('/')
       .catch((err) => next(err))
   })
 projectImageUpload.route('/:projectId')
-  .put(imageUpload, (req, res, next) => {
+  .put(imageUpload.single('imageUpload'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     Project.findByIdAndUpdate(req.params.projectId, {
       $set: {
