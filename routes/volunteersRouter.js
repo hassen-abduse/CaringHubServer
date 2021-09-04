@@ -3,6 +3,7 @@ const Volunteer = require('../models/volunteers')
 const volunteersRouter = express.Router()
 const passport = require('passport')
 const uploads = require('./uploads')
+const auth = require('./auth')
 
 volunteersRouter.use(express.json())
 
@@ -93,7 +94,7 @@ volunteersRouter.post('/register', (req, res, next) => {
 
 
 volunteersRouter.route('/uploadPic')
-  .put(uploads.imageUpload, (req, res, next) => {
+  .put(auth.verifyVol, uploads.imageUpload, (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     Volunteer.findByIdAndUpdate(req.user._id, {
       $set: {
