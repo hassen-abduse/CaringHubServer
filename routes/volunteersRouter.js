@@ -39,18 +39,18 @@ volunteersRouter.route('/:volId')
   })
 
 
-  .put((req, res, next) => {
-    // Update a Volunteer's Account
-    Volunteer.findByIdAndUpdate(req.params.volId, {
-      $set: req.body
-    }, { new: true })
-      .then((vol) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(vol)
-      }, (err) => next(err))
-      .catch((err) => next(err))
-  })
+  // .put((req, res, next) => {
+  //   // Update a Volunteer's Account
+  //   Volunteer.findByIdAndUpdate(req.params.volId, {
+  //     $set: req.body
+  //   }, { new: true })
+  //     .then((vol) => {
+  //       res.statusCode = 200
+  //       res.setHeader('Content-Type', 'application/json')
+  //       res.json(vol)
+  //     }, (err) => next(err))
+  //     .catch((err) => next(err))
+  // })
 
   .delete((req, res, next) => {
     // delete a Volunteer's account
@@ -91,7 +91,8 @@ volunteersRouter.post('/register', (req, res, next) => {
     })
 })
 
-volunteersRouter.route('uploadPic')
+
+volunteersRouter.route('/uploadPic')
   .put(uploads.imageUpload, (req, res, next) => {
     const path = req.file.path.replace(/\\/g, '/')
     Volunteer.findByIdAndUpdate(req.user._id, {
