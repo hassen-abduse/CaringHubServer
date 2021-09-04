@@ -91,7 +91,7 @@ volunteersRouter.post('/register', (req, res, next) => {
     })
 })
 
-volunteersRouter.route('/uploadPic')
+volunteersRouter.route('uploadPic')
   .put(uploads.imageUpload, (req, res, next) => {
     const path = req.file.path.replace(/\\/g, '/')
     Volunteer.findByIdAndUpdate(req.user._id, {
