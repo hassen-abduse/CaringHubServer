@@ -39,7 +39,89 @@ const pdfFileFilter = (req, file, cb) => {
 const imageUpload = multer({ storage: imageStorage, fileFilter: imageFileFilter })
 const pdfUpload = multer({ storage: pdfStorage, fileFilter: pdfFileFilter })
 
+const express = require('express')
+const auth = require('./auth')
+const Volunteer = require('../models/volunteers')
+const Organization = require('../models/organizations')
+const Users = require('../models/users')
+const Project = require('../models/projects')
+
+const volImageUpload = express.Router()
+const userImageUpload = express.Router()
+const orgLogoUpload = express.Router()
+const projectImageUpload = express.Router()
+
+volImageUpload.use(express.json())
+userImageUpload.use(express.json())
+orgLogoUpload.use(express.json())
+projectImageUpload.use(express.json())
+
+volImageUpload.route('/')
+  .put(auth.verifyVol, imageUpload, (req, res, next) => {
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+    Volunteer.findByIdAndUpdate(req.user._id, {
+      $set: {
+        profilePicture: path
+      }
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
+
+userImageUpload.route('/')
+  .put(auth.verifyUser, imageUpload, (req, res, next) => {
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+    Users.findByIdAndUpdate(req.user._id, {
+      $set: {
+        profilePicture: path
+      }
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
+
+orgLogoUpload.route('/')
+  .put(auth.verifyOrg, imageUpload, (req, res, next) => {
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+    Organization.findByIdAndUpdate(req.user._id, {
+      $set: {
+        logo: path
+      }
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
+projectImageUpload.route('/:projectId')
+  .put(imageUpload, (req, res, next) => {
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+    Project.findByIdAndUpdate(req.params.projectId, {
+      $set: {
+        image: path
+      }
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
+
 module.exports = {
-  imageUpload: imageUpload.single('imageUpload'),
-  pdfUpload: pdfUpload.single('pdfUpload')
+  volImageUpload,
+  orgLogoUpload,
+  projectImageUpload,
+  userImageUpload
 }

@@ -34,6 +34,9 @@ const Organization = new Schema({
     type: Boolean,
     default: false
   },
+  logo: {
+    type: String
+  },
   adminPosition: {
     type: String,
     required: true

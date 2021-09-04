@@ -2,8 +2,6 @@ const express = require('express')
 const Volunteer = require('../models/volunteers')
 const volunteersRouter = express.Router()
 const passport = require('passport')
-const uploads = require('./uploads')
-const auth = require('./auth')
 
 volunteersRouter.use(express.json())
 
@@ -40,18 +38,18 @@ volunteersRouter.route('/:volId')
   })
 
 
-  // .put((req, res, next) => {
-  //   // Update a Volunteer's Account
-  //   Volunteer.findByIdAndUpdate(req.params.volId, {
-  //     $set: req.body
-  //   }, { new: true })
-  //     .then((vol) => {
-  //       res.statusCode = 200
-  //       res.setHeader('Content-Type', 'application/json')
-  //       res.json(vol)
-  //     }, (err) => next(err))
-  //     .catch((err) => next(err))
-  // })
+  .put((req, res, next) => {
+    // Update a Volunteer's Account
+    Volunteer.findByIdAndUpdate(req.params.volId, {
+      $set: req.body
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
 
   .delete((req, res, next) => {
     // delete a Volunteer's account
@@ -92,21 +90,5 @@ volunteersRouter.post('/register', (req, res, next) => {
     })
 })
 
-
-volunteersRouter.route('/uploadPic')
-  .put(auth.verifyVol, uploads.imageUpload, (req, res, next) => {
-    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
-    Volunteer.findByIdAndUpdate(req.user._id, {
-      $set: {
-        profilePicture: path
-      }
-    }, { new: true })
-      .then((vol) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(vol)
-      }, (err) => next(err))
-      .catch((err) => next(err))
-  })
 
 module.exports = volunteersRouter
