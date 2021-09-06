@@ -7,6 +7,8 @@ projectsRouter.route('/')
   .get((req, res, next) => {
     Projects.find({})
       .populate('ownerOrg')
+      .populate('skillSets')
+      .populate('causeAreas')
       .then((projects) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
@@ -39,6 +41,8 @@ projectsRouter.route('/:projectId')
   .get((req, res, next) => {
     Projects.findById(req.params.projectId)
       .populate('ownerOrg')
+      .populate('skillSets')
+      .populate('causeAreas')
       .then((project) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
