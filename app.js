@@ -64,10 +64,10 @@ app.post('/login', (req, res, next) => {
     if (error) return res.json(401, error)
     req.logIn(user, (err) => {
       if (err) return res.send(err)
-      const token = auth.getToken({ _id: req.user._id })
+      const token = auth.getToken({ _id: req.user._id, role: req.user.role })
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
-      res.json({ success: true, token: token, Role: req.user.role, userId: req.user._id, status: 'Login Success!' })
+      res.json({ success: true, token: token, status: 'Login Success!' })
     })
   })(req, res, next)
 })
