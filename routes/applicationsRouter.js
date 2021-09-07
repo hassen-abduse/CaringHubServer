@@ -28,6 +28,7 @@ applicationsRouter.route('/')
           res.setHeader('Content-Type', 'application/json')
           error = new Error('Application Already Exists!')
           next(error)
+          return
         }
         if(err) {
           next(err)
