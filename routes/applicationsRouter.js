@@ -26,7 +26,7 @@ applicationsRouter.route('/')
         if(app) {
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
-          res.json({status: 'Already Applied!'})
+          res.json({errMess: 'Application Already Exists!'})
         }
         if(err) {
           next(err)
