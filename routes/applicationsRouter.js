@@ -17,7 +17,10 @@ applicationsRouter.route('/')
   })
 
   .post((req, res, next) => {
-    Applications.create(req.body)
+    Applications.create({
+      volunteer: req.user._id,
+      project: req.body.project
+    })
       .then((app) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
