@@ -64,6 +64,7 @@ volunteersRouter.route('/:volId')
 
 volunteersRouter.post('/register', (req, res, next) => {
   // Register a new Volunteer
+  console.log(req.body)
   Volunteer.register(new Volunteer({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -79,7 +80,7 @@ volunteersRouter.post('/register', (req, res, next) => {
       if (err) {
         res.statusCode = 500
         res.setHeader('Content-Type', 'application/json')
-        res.json({ err: err })
+        res.json({ err: err, })
       } else {
         passport.authenticate('vol-local')(req, res, () => {
           res.statusCode = 200
