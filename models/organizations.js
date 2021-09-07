@@ -26,20 +26,12 @@ const Organization = new Schema({
     unique: true,
     required: true
   },
-  adminName: {
-    type: String,
-    required: true
-  },
   isApproved: {
     type: Boolean,
     default: false
   },
   logo: {
     type: String
-  },
-  adminPosition: {
-    type: String,
-    required: true
   },
   mission: {
     type: String,
