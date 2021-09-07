@@ -1,6 +1,7 @@
 const express = require('express')
 const Applications = require('../models/applications')
 const applicationsRouter = express.Router()
+const auth = require('./auth')
 applicationsRouter.use(express.json())
 
 applicationsRouter.route('/')
@@ -16,7 +17,7 @@ applicationsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .post((req, res, next) => {
+  .post(auth.verifyVol, (req, res, next) => {
     Applications.create({
       volunteer: req.user._id,
       project: req.body.project
