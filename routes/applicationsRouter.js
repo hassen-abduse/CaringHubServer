@@ -22,11 +22,12 @@ applicationsRouter.route('/')
       {
         volunteer: req.user._id,
         project: req.body.project
-      }, (err, app) => {
-        if(app) {
+      }, (err, appl) => {
+        if(appl) {
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
-          res.json({errMess: 'Application Already Exists!'})
+          error = new Error('Application Already Exists!')
+          next(error)
         }
         if(err) {
           next(err)
