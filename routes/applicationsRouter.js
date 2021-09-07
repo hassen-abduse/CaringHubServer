@@ -18,16 +18,34 @@ applicationsRouter.route('/')
   })
 
   .post(auth.verifyVol, (req, res, next) => {
-    Applications.create({
-      volunteer: req.user._id,
-      project: req.body.project
-    })
-      .then((app) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(app)
-      }, (err) => next(err))
-      .catch((err) => next(err))
+    Applications.findOne(
+      {
+        volunteer: req.user._id,
+        project: req.body.project
+      }, (err, app) => {
+        if(app) {
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/json')
+          res.json({status: 'Already Applied!'})
+        }
+        if(err) {
+          next(err)
+        }
+        else {
+          Applications.create({
+            volunteer: req.user._id,
+            project: req.body.project
+          })
+            .then((app) => {
+              res.statusCode = 200
+              res.setHeader('Content-Type', 'application/json')
+              res.json(app)
+            }, (err) => next(err))
+            .catch((err) => next(err))
+        }
+
+      }
+    )
   })
 
 
