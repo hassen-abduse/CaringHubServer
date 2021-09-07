@@ -8,6 +8,8 @@ volunteersRouter.use(express.json())
 volunteersRouter.route('/')
   .get((req, res, next) => {
     Volunteer.find({})
+      .populate('skillSets')
+      .populate('causeAreas')
       .then((vols) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
@@ -29,6 +31,8 @@ volunteersRouter.route('/')
 volunteersRouter.route('/:volId')
   .get((req, res, next) => {
     Volunteer.findById(req.params.volId)
+      .populate('skillSets')
+      .populate('causeAreas')
       .then((vol) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
@@ -85,7 +89,7 @@ volunteersRouter.post('/register', (req, res, next) => {
         passport.authenticate('vol-local')(req, res, () => {
           res.statusCode = 200
           res.setHeader('Content-Type', 'application/json')
-          res.json({ success: true, status: 'Registration Successful!' })
+          res.json({ success: true, status: 'Registration Successful!', user_id: req.user._id })
         })
       }
     })
