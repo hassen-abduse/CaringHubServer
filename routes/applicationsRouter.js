@@ -41,8 +41,9 @@ applicationsRouter.route('/')
           })
             .then((app) => {
               res.statusCode = 200
+              res.statusMessage='Success!'
               res.setHeader('Content-Type', 'application/json')
-              res.json({app: app, reqStatus:'Success'})
+              res.json(app)
             }, (err) => next(err))
             .catch((err) => next(err))
         }
