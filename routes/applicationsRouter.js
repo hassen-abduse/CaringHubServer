@@ -24,7 +24,7 @@ applicationsRouter.route('/')
         project: req.body.project
       }, (err, app) => {
         if(app) {
-          res.statusCode = 200
+          res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
           res.json({status: 'Already Applied!'})
         }
@@ -39,7 +39,7 @@ applicationsRouter.route('/')
             .then((app) => {
               res.statusCode = 200
               res.setHeader('Content-Type', 'application/json')
-              res.json(app)
+              res.json({app: app, status:'Success'})
             }, (err) => next(err))
             .catch((err) => next(err))
         }
