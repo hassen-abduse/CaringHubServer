@@ -66,10 +66,8 @@ organizationsRouter.post('/register', (req, res, next) => {
   Organization.register(new Organization({
     username: req.body.username,
     name: req.body.name,
-    adminName: req.body.adminName,
     phoneNumber: req.body.phoneNumber,
     emailAddress: req.body.emailAddress,
-    adminPosition: req.body.adminPosition,
     address: req.body.address,
     mission: req.body.mission
 
