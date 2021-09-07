@@ -71,7 +71,7 @@ volImageUpload.route('/')
       }, (err) => next(err))
       .catch((err) => next(err))
   })
-
+volResumeUpload()
 userImageUpload.route('/')
   .put(auth.verifyUser, imageUpload.single('imageUpload'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')

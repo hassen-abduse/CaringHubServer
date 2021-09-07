@@ -35,7 +35,7 @@ usersRouter.post('/register', (req, res) => {
       passport.authenticate('user-local')(req, res, () => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
-        res.json({ success: true, status: 'Registration Successful!' })
+        res.json({ success: true, status: 'Registration Successful!', user_id: req.user._id })
       })
     }
   })

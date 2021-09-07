@@ -80,7 +80,7 @@ volunteersRouter.post('/register', (req, res, next) => {
       if (err) {
         res.statusCode = 500
         res.setHeader('Content-Type', 'application/json')
-        res.json({ err: err, })
+        res.json({ error: err, })
       } else {
         passport.authenticate('vol-local')(req, res, () => {
           res.statusCode = 200
