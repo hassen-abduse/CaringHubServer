@@ -25,6 +25,7 @@ projectsRouter.route('/')
       location: req.body.location,
       name: req.body.name,
       description: req.body.description,
+      startDate: req.body.startDate,
       endDate: req.body.endDate,
       skillSets: req.body.skillSets,
       causeAreas: req.body.causeAreas
