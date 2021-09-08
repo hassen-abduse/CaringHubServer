@@ -31,10 +31,12 @@ const Volunteer = new Schema({
   },
   profilePicture: {
     type: String,
+    required: true
     
   },
   resume: {
-    type: String
+    type: String,
+    required: true
   },
   skillSets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
 

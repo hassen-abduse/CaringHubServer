@@ -140,5 +140,7 @@ module.exports = {
   orgLogoUpload,
   projectImageUpload,
   userImageUpload,
-  volResumeUpload
+  volResumeUpload,
+  imageUpload,
+  pdfUpload
 }

@@ -31,7 +31,12 @@ const Organization = new Schema({
     default: false
   },
   logo: {
-    type: String
+    type: String,
+    required: true
+  },
+  legalDoc: {
+    type: String,
+    required: true
   },
   mission: {
     type: String,
