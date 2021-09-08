@@ -1,6 +1,7 @@
 const express = require('express')
 const Projects = require('../models/projects')
 const projectsRouter = express.Router()
+const auth = require('./auth')
 projectsRouter.use(express.json())
 
 projectsRouter.route('/')
@@ -17,8 +18,15 @@ projectsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .post((req, res, next) => {
-    Projects.create(req.body)
+  .post(auth.verifyOrg, (req, res, next) => {
+    Projects.create({
+      ownerOrg: req.user_id, 
+      name: req.body.name,
+      description: req.body.description,
+      endDate: req.body.endDate,
+      skillSets: req.body.skillSets,
+      causeAreas: req.body.causeAreas
+    })
       .then((project) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
