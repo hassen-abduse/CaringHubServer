@@ -1,7 +1,6 @@
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
-const cors = require('cors')
 const logger = require('morgan')
 const config = require('./config')
 const mongoose = require('mongoose')
@@ -32,11 +31,6 @@ const app = express()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
-
-app.use(cors({
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200 
-}));
 
 app.use(logger('dev'))
 app.use(express.json())
