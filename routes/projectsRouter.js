@@ -20,7 +20,8 @@ projectsRouter.route('/')
 
   .post(auth.verifyOrg, (req, res, next) => {
     Projects.create({
-      ownerOrg: req.user_id, 
+      ownerOrg: req.user_id,
+      image: req.body.image,
       name: req.body.name,
       description: req.body.description,
       endDate: req.body.endDate,
