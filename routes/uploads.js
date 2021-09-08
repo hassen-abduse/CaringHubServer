@@ -47,6 +47,7 @@ const Users = require('../models/users')
 const Project = require('../models/projects')
 
 const volImageUpload = express.Router()
+const volResumeUpload = express.Router()
 const userImageUpload = express.Router()
 const orgLogoUpload = express.Router()
 const projectImageUpload = express.Router()
@@ -72,6 +73,21 @@ volImageUpload.route('/')
       .catch((err) => next(err))
   })
 
+volResumeUpload.route('/')
+  .put(auth.verifyVol, pdfUpload.single('pdfUpload'), (req, res, next) => {
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+    Volunteer.findByIdAndUpdate(req.user._id, {
+      $set: {
+        resume: path
+      }
+    }, { new: true })
+      .then((vol) => {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(vol)
+      }, (err) => next(err))
+      .catch((err) => next(err))
+  })
 userImageUpload.route('/')
   .put(auth.verifyUser, imageUpload.single('imageUpload'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
@@ -123,5 +139,6 @@ module.exports = {
   volImageUpload,
   orgLogoUpload,
   projectImageUpload,
-  userImageUpload
+  userImageUpload,
+  volResumeUpload
 }
