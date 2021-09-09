@@ -39,7 +39,7 @@ projectsRouter.route('/')
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
         res.json(project)
-      }, (err) => { console.log(err); next(err);})
+      }, (err) => next(err))
       .catch((err) => { console.log(err); next(err);})
   })
 
