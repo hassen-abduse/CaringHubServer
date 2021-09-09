@@ -42,6 +42,7 @@ const pdfFileFilter = (req, file, cb) => {
 const upload = multer({
   storage: GoogleDriveStorage({
     drive: drive,
+    parent:'caringhub-325517',
     filename: (req, file, cb) => {
       cb(null, file.originalname)
     }
