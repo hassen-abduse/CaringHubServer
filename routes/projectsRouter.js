@@ -24,7 +24,7 @@ projectsRouter.route('/')
     Projects.create({
       ownerOrg: req.user._id,
       image: path ? path : '',
-      location: req.body.location,
+      location: JSON.parse(req.body.location),
       name: req.body.name,
       description: req.body.description,
       startDate: req.body.startDate,
