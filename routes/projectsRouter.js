@@ -29,8 +29,8 @@ projectsRouter.route('/')
       description: req.body.description,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
-      skillSets: req.body.skillSets,
-      causeAreas: req.body.causeAreas
+      skillSets: JSON.parse(req.body.skillSets),
+      causeAreas: JSON.parse(req.body.causeAreas)
     })
       .then((project) => {
         res.statusCode = 200
