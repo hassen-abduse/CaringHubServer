@@ -68,8 +68,8 @@ volunteersRouter.route('/:volId')
   })
 
 volunteersRouter.post('/register', uploadMultiple.fields([{name: 'VolPP'}, {name: 'doc'}]), (req, res, next) => {
-  const imagePath = 'https://caringhub.herokuapp.com/' + req.files[0].path.replace(/\\/g, '/')
-  const resumePath = 'https://caringhub.herokuapp.com/' + req.files[1].path.replace(/\\/g, '/')
+  const imagePath = 'https://caringhub.herokuapp.com/' + req.files.VolPP.path.replace(/\\/g, '/')
+  const resumePath = 'https://caringhub.herokuapp.com/' + req.files.doc.path.replace(/\\/g, '/')
   Volunteer.register(new Volunteer({
     username: req.body.username,
     firstName: req.body.firstName,
