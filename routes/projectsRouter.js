@@ -19,7 +19,9 @@ projectsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .post(auth.verifyOrg, imageUpload.single('projectImage'), (req, res, next) => {
+  .post(auth.verifyOrg, (req, res, next) => {
+    console.log(req.file);
+    console.log(req.body);
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     console.log(path)
     const project = {
