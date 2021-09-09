@@ -74,11 +74,11 @@ volunteersRouter.post('/register', imageUpload.single('volPP'), pdfUpload.single
     username: req.body.username,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    profilePicture: imagePath,
-    resume: resumePath,
+    profilePicture: imagePath ? imagePath : '',
+    resume: resumePath ? resumePath : '',
     phoneNumber: req.body.phoneNumber,
     emailAddress: req.body.emailAddress,
-    address: req.body.address,
+    address: JSON.parse(req.body.address),
     skillSets: req.body.skillSets,
     causeAreas: req.body.causeAreas
 
