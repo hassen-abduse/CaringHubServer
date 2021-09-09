@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "caringhub-325517",
+  "private_key_id": "81f38e1357906b2e701eee63f78a9e869e8e9abe",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDnDKJTSh+jtTix\nN5i2L4eaSQ+UE0ZpDHCnmwg8L91RdUsgQruGew+3zFHhzF/Kq/jE0Nw9n/AgK7T/\nsooFpv3FKOljLDyfS+nqCL/X0RVOQsMzq6eH+Nu/7X9HHz9/vRoXN4Z72RwN9p4S\nJZqB/VqEBPAwlOCHU8M4pd8dMbZ3+qVOqhMc2PDp2xwXGAnT37aUi8LHxH9Aq4Tx\nLZxGHWWBRGWpPgr8psHkbc5C87hhOEyNUk3dzE8jvq0AtKGsUw/XUDhqQFHk/6cm\nSmmY1AYCbtp1NQqtUV33t4UoNSR6yfaLFbPyVjKd9FFLzPIOnXVCHHp3F83kwS1n\nDOT8nI6pAgMBAAECggEARYcaQ/key0tJ+55Q4KYt5sJMo1Enk44QSoePM1lt/sjO\nqi8ask3O/Y7JJysyulEE4+k8FXlPL8cnSPjnqurFG/MDRHo35fHYuroWTPIYuLvD\ndQWXPQYozrk/312qZJy5wLnPSO6dECCiEbDqLWrZtbestdnfNSoCKcZUfTsL/09F\n0gQwgCyPZcZNjj21LHN53jdYB7xxKTZiIN/W2JGZlALdjmsSVCDNEuhjN0Jl1lp6\nT2VUU/AymczZKGZRkzgCJ5SG4swK1EE/h3fngzUa07mnPzuJLDiBZGXnPv7JmW/j\nQ808CdJr0fylL5dhXcBCAY9Cu98iV4+axp2rA7UoxwKBgQD3K0W1vsJB2nwBqzJV\n0upmJDXJagyNol1dFkUronGs/YhjlH/roevmvGl1PeIPjd1e98vN2DTuQ8rWNxsh\nxhLt5L5xESrj1UArawXL2gigSpIQi6nisXNDBiPzJRw8J+kt+UzdJd9BjawyFsPH\nBzkqBsFCEK+jFhmsgyTTeIOkgwKBgQDvTexiI8WSmGtzOo98bloFcky3MhWF/9k/\nHqlUyKj/16feG4/5AbTI8rZF+0sB2CkUb+fEu2SaircLT5gB1G7vtfq6gyYWzrhJ\nzgGxs6YmCxa93hw/9Lt77j44UqfqUDlB+DPkuEYI6RLkXmroQRBMba+Nb2x7BPDG\nhc2hpJlQYwKBgQCkkCj/kpxfoAoESmle/uiVTPKKwZLOEhY7TgKLxMIOvVa7hjmN\nNueLXlKQfr0uQfPrsOv+hz7mjDhWW6Yy3F/qB+xL93Qo8Oiif8UCLo6jukJ5xaM8\njY0CSOpSjpi37JKxy1RDwV1dlefaCZIbx1FmC81MITPvT12UoFQ6f/iV5QKBgQDZ\nmpga3cBo/2Sl0Vhso8QEM92CsG5V/ULFXNJJoHXcv3OMSq/ulBiaqeoJVOrt8Gva\ng6/TezuONBkilev5rfx6yZYHR/64up1lr4hm2J969JZnbLNvjNF3bjrx6Gd8cBrA\n3DwD/XTh4V8mfpzkOVXiydLa37lbXDC9tSo5lH09VQKBgQCoiDB/slD6yMeMkxxX\nra51zmUrzKgX5KtjcyejmrNAXZZw3KoQ6/Vsk5/Ktn/yvf1k4Jd4PMgrzLKFInNN\ns7JIAFwPy3SaGUrJHJB69SGQUk1tqqXm7/xdZdV+4es5ZaLZzrQE+Q1rWvsdtsyj\nAoibh2YIqQQyK8z3wCLAsvuLng==\n-----END PRIVATE KEY-----\n",
+  "client_email": "caring-hub@caringhub-325517.iam.gserviceaccount.com",
+  "client_id": "101250751156090127702",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/caring-hub%40caringhub-325517.iam.gserviceaccount.com"
+}

@@ -1,4 +1,8 @@
 const multer = require('multer')
+const multerGoogleStorage = require("multer-google-storage")
+const { google } = require('googleapis')
+const GoogleDriveStorage = require('multer-google-drive')
+var drive = google.drive({version: "v3", auth: 'AIzaSyBWKnJWi0iAeBxzSL_Be7s_83ht5IXhReA'})
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/images')
@@ -35,6 +39,27 @@ const pdfFileFilter = (req, file, cb) => {
   }
 }
 
+const upload = multer({
+  storage: GoogleDriveStorage({
+    drive: drive,
+    filename: (req, file, cb) => {
+      cb(null, file.originalname)
+    }
+  })
+})
+
+
+const uploadHandler = multer({
+  storage: multerGoogleStorage.storageEngine({
+    autoRetry: true,
+    bucket: 'caring_hub',
+    projectId: 'caringhub-325517',
+    keyFilename: './caringhub-325517-81f38e135790',
+    filename: (req, file, cb) => {
+      cb(null, `/projectFiles/${file.originalname}`)
+    }
+  })
+});
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => { // setting destination of uploading files        
     if (file.fieldname === "doc") { // if uploading resume
@@ -71,7 +96,7 @@ const fileFilter = (req, file, cb) => {
     }
   }
 };
-const uploadMultiple = multer({storage: fileStorage, fileFilter: fileFilter})
+const uploadMultiple = multer({ storage: fileStorage, fileFilter: fileFilter })
 const imageUpload = multer({ storage: imageStorage, fileFilter: imageFileFilter })
 const pdfUpload = multer({ storage: pdfStorage, fileFilter: pdfFileFilter })
 
@@ -107,6 +132,10 @@ volImageUpload.route('/')
         res.json(vol)
       }, (err) => next(err))
       .catch((err) => next(err))
+  })
+  .post(upload.single('test'), (req, res, next) => {
+    const path = req.file.path
+    res.send(path)
   })
 
 volResumeUpload.route('/')
@@ -179,5 +208,6 @@ module.exports = {
   volResumeUpload,
   imageUpload,
   pdfUpload,
-  uploadMultiple
+  uploadMultiple,
+  uploadHandler
 }
