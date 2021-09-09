@@ -40,7 +40,7 @@ projectsRouter.route('/')
         res.setHeader('Content-Type', 'application/json')
         res.json(project)
       }, (err) => { console.log(err); next(err);})
-      .catch((err) => next(err))
+      .catch((err) => { console.log(err); next(err);})
   })
 
   .delete((req, res, next) => {
