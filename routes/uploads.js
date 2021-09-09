@@ -44,7 +44,7 @@ const fileStorage = multer.diskStorage({
     }
   },
   filename: (req, file, cb) => { // naming file
-    cb(null, file.fieldname+"-"+uuidv4()+path.extname(file.originalname));
+    cb(null, file.originalname);
   }
 });
 
