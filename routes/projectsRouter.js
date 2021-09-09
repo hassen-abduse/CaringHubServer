@@ -19,11 +19,9 @@ projectsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .post(auth.verifyOrg, (req, res, next) => {
-    const path = 'https://caringhub.herokuapp.com/' + req.body.projectImage.path.replace(/\\/g, '/')
-    console.log(path)
-    console.log(path)
-    const project = {
+  .post(auth.verifyOrg, imageUpload.single('projectImage'), (req, res, next) => {
+    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+    Projects.create({
       ownerOrg: req.user._id,
       image: path ? path : '',
       location: req.body.location,
@@ -33,15 +31,13 @@ projectsRouter.route('/')
       endDate: req.body.endDate,
       skillSets: req.body.skillSets,
       causeAreas: req.body.causeAreas
-    }
-    console.log(project)
-    Projects.create(project)
+    })
       .then((project) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
         res.json(project)
       }, (err) => next(err))
-      .catch((err) => { console.log(err); next(err);})
+      .catch((err) => next(err))
   })
 
   .delete((req, res, next) => {
