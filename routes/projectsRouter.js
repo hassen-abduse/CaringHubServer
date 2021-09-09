@@ -21,7 +21,7 @@ projectsRouter.route('/')
 
   .post(auth.verifyOrg, imageUpload.single('projectImage'), (req, res, next) => {
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
-    Projects.create({
+    const project = {
       ownerOrg: req.user._id,
       image: path ? path : '',
       location: req.body.location,
@@ -31,12 +31,14 @@ projectsRouter.route('/')
       endDate: req.body.endDate,
       skillSets: req.body.skillSets,
       causeAreas: req.body.causeAreas
-    })
+    }
+    console.log(project)
+    Projects.create(project)
       .then((project) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
         res.json(project)
-      }, (err) => next(err))
+      }, (err) => { console.log(err); next(err);})
       .catch((err) => next(err))
   })
 
