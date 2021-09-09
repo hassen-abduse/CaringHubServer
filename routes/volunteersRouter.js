@@ -2,7 +2,7 @@ const express = require('express')
 const Volunteer = require('../models/volunteers')
 const volunteersRouter = express.Router()
 const passport = require('passport')
-const { imageUpload, pdfUpload } = require('./uploads')
+const { uploadMultiple } = require('./uploads')
 
 volunteersRouter.use(express.json())
 
@@ -67,9 +67,9 @@ volunteersRouter.route('/:volId')
       .catch((err) => next(err))
   })
 
-volunteersRouter.post('/register', imageUpload.single('volPP'), pdfUpload.single('volCV'), (req, res, next) => {
-  const imagePath = 'https://caringhub.herokuapp.com/' + req.files.volPP.path.replace(/\\/g, '/')
-  const resumePath = 'https://caringhub.herokuapp.com/' + req.files.volCV.path.replace(/\\/g, '/')
+volunteersRouter.post('/register', uploadMultiple.fields([{name: 'VolPP'}, {name: 'doc'}]), (req, res, next) => {
+  const imagePath = 'https://caringhub.herokuapp.com/' + req.files[0].path.replace(/\\/g, '/')
+  const resumePath = 'https://caringhub.herokuapp.com/' + req.files[1].path.replace(/\\/g, '/')
   Volunteer.register(new Volunteer({
     username: req.body.username,
     firstName: req.body.firstName,
