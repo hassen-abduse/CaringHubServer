@@ -21,7 +21,7 @@ projectsRouter.route('/')
 
   .post(auth.verifyOrg, (req, res, next) => {
     console.log(req.file);
-    console.log(req.body);
+    console.log(JSON.parse(req.body));
     const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
     console.log(path)
     const project = {
