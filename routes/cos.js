@@ -30,9 +30,7 @@ var upload = multer({
     })
 })
 
-async function getPreSignedUrl(bucketName, itemName) {
-    return cos.getSignedUrl('getObject', { Bucket: bucketName, Key: itemName, Expires: 31536000 })
-}
+
 
 function getItem(bucketName, itemName) {
     console.log(`Retrieving item from bucket: ${bucketName}, key: ${itemName}`);
@@ -137,5 +135,4 @@ module.exports = {
     multiPartUpload,
     getItem,
     upload,
-    getPreSignedUrl
 }

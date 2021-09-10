@@ -2,7 +2,7 @@ const express = require('express')
 const Volunteer = require('../models/volunteers')
 const volunteersRouter = express.Router()
 const passport = require('passport')
-const { upload, getPreSignedUrl } = require('./cos')
+const { upload, getItem} = require('./cos')
 
 volunteersRouter.use(express.json())
 
@@ -67,16 +67,15 @@ volunteersRouter.route('/:volId')
       .catch((err) => next(err))
   })
 
-volunteersRouter.post('/register', upload.fields([{ name: 'VolPP' }, { name: 'doc' }]), (req, res, next) => {
-  var imagePath = '', resumePath = ''
-  getPreSignedUrl('caringhub', req.files.VolPP[0].originalname).then((value) => {
-    imagePath = value
+volunteersRouter.post('/register', upload.fields([{name: 'VolPP'}, {name: 'doc'}]), (req, res, next) => {
+  var imagePath, resumePath
+  getItem('caringhub', req.files.VolPP[0].originalname).then((url) => {
+    imagePath = url
   })
-  getPreSignedUrl('caringhub', req.files.doc[0].originalname).then((value) => {
-    resumePath = value
+  getItem('caringhub', req.files.doc[0].originalname).then((url) => {
+    resumePath = url
   })
-  console.log(imagePath)
-  console.log(resumePath)
+
   Volunteer.register(new Volunteer({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -96,7 +95,7 @@ volunteersRouter.post('/register', upload.fields([{ name: 'VolPP' }, { name: 'do
         res.setHeader('Content-Type', 'application/json')
         res.json({ error: err, })
       } else {
-
+        
         passport.authenticate('vol-local')(req, res, () => {
           res.statusCode = 200
           res.setHeader('Content-Type', 'application/json')
