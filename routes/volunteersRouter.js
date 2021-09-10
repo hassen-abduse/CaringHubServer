@@ -2,7 +2,7 @@ const express = require('express')
 const Volunteer = require('../models/volunteers')
 const volunteersRouter = express.Router()
 const passport = require('passport')
-const { upload, getItem} = require('./cos')
+const { upload, getItem } = require('./cos')
 
 volunteersRouter.use(express.json())
 
@@ -67,12 +67,12 @@ volunteersRouter.route('/:volId')
       .catch((err) => next(err))
   })
 
-volunteersRouter.post('/register', upload.fields([{name: 'VolPP'}, {name: 'doc'}]), (req, res, next) => {
+volunteersRouter.post('/register', upload.fields([{ name: 'VolPP' }, { name: 'doc' }]), async (req, res, next) => {
   var imagePath, resumePath
-  getItem('caringhub', req.files.VolPP[0].originalname).then((url) => {
+  await getItem('caringhub', req.files.VolPP[0].originalname).then((url) => {
     imagePath = url
   })
-  getItem('caringhub', req.files.doc[0].originalname).then((url) => {
+  await getItem('caringhub', req.files.doc[0].originalname).then((url) => {
     resumePath = url
   })
 
@@ -95,7 +95,7 @@ volunteersRouter.post('/register', upload.fields([{name: 'VolPP'}, {name: 'doc'}
         res.setHeader('Content-Type', 'application/json')
         res.json({ error: err, })
       } else {
-        
+
         passport.authenticate('vol-local')(req, res, () => {
           res.statusCode = 200
           res.setHeader('Content-Type', 'application/json')
