@@ -68,7 +68,7 @@ volunteersRouter.route('/:volId')
   })
 
 volunteersRouter.post('/register', upload.fields([{ name: 'VolPP' }, { name: 'doc' }]), (req, res, next) => {
-  var imagePath, resumePath
+  var imagePath = '', resumePath = ''
   getPreSignedUrl('caringhub', req.files.VolPP[0].originalname).then((value) => {
     imagePath = value
   })
