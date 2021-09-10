@@ -2,7 +2,7 @@ const express = require('express')
 const Projects = require('../models/projects')
 const projectsRouter = express.Router()
 const auth = require('./auth')
-const { upload } = require('./cos')
+const { upload, getItem } = require('./cos')
 projectsRouter.use(express.json())
 
 projectsRouter.route('/')
