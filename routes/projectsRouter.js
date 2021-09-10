@@ -2,7 +2,7 @@ const express = require('express')
 const Projects = require('../models/projects')
 const projectsRouter = express.Router()
 const auth = require('./auth')
-const { imageUpload } = require('./uploads')
+const { upload } = require('./cos')
 projectsRouter.use(express.json())
 
 projectsRouter.route('/')
@@ -19,11 +19,14 @@ projectsRouter.route('/')
       .catch((err) => next(err))
   })
 
-  .post(auth.verifyOrg, imageUpload.single('projectImage'), (req, res, next) => {
-    const path = 'https://caringhub.herokuapp.com/' + req.file.path.replace(/\\/g, '/')
+  .post(auth.verifyOrg, upload.single('projectImage'), async (req, res, next) => {
+    var imagePath
+    await getItem('caringhub', req.file.originalname).then((url) => {
+      imagePath = url
+    })
     Projects.create({
       ownerOrg: req.user._id,
-      image: path ? path : '',
+      image: imagePath ? imagePath : '',
       location: JSON.parse(req.body.location),
       name: req.body.name,
       description: req.body.description,
