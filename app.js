@@ -60,20 +60,6 @@ app.use('/projectImageUpload', projectImageUpload)
 app.use('/approveOrg', approveOrg)
 app.use('/approveApp', approveApp)
 
-app.post('/testCos', upload.single('up'), (req, res, next) => {
-  //multiPartUpload('caringhub', req.file.filename, 'public/images/' + req.file.filename)
-  //res.send(req.file)
-  getItem('caringhub', req.file.originalname).then((url => {
-    res.send(url)
-  }))
-})
-
-app.get('/testCos', (req, res, next) => {
-  getItem('caringhub', 'programs.pdf').then((data) => {
-    res.json(data)
-  })
-})
-
 
 
 app.get('/login', (req, res) => {
