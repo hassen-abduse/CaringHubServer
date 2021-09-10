@@ -20,15 +20,13 @@ const skillsRouter = require('./routes/skillsRouter')
 const { approveApp, approveOrg } = require('./routes/approval')
 const { multiPartUpload, getItem } = require('./routes/cos')
 
-//getBucketContents('caringhub')
-// multiPartUpload('caringhub', 'uploads.js', './routes/uploads.js')
 
 const dbUrl = process.env.MONGODB_URI
-//const connect = mongoose.connect(dbUrl)
+const connect = mongoose.connect(dbUrl)
 
-// connect.then((db) => {
-//   console.log('Succesfully Connected to the DB Server.')
-// }, (err) => console.log(err))
+connect.then((db) => {
+  console.log('Succesfully Connected to the DB Server.')
+}, (err) => console.log(err))
 
 const app = express()
 
