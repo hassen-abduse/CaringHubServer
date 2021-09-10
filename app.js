@@ -18,7 +18,7 @@ const volsRouter = require('./routes/volunteersRouter')
 const causesRouter = require('./routes/causesRouter')
 const skillsRouter = require('./routes/skillsRouter')
 const { approveApp, approveOrg } = require('./routes/approval')
-const { multiPartUpload, getItem } = require('./routes/cos')
+const { getItem, upload } = require('./routes/cos')
 
 
 const dbUrl = process.env.MONGODB_URI
@@ -60,13 +60,16 @@ app.use('/projectImageUpload', projectImageUpload)
 app.use('/approveOrg', approveOrg)
 app.use('/approveApp', approveApp)
 
-app.post('/testCos', uploadMultiple.single('up'), (req, res, next) => {
-  multiPartUpload('caringhub', req.file.filename, 'public/images/' + req.file.filename)
-  res.send(req.file)
+app.post('/testCos', upload.single('up'), (req, res, next) => {
+  //multiPartUpload('caringhub', req.file.filename, 'public/images/' + req.file.filename)
+  //res.send(req.file)
+  getItem('caringhub', req.file.originalname).then((url => {
+    res.send(url)
+  }))
 })
 
 app.get('/testCos', (req, res, next) => {
-  getItem('caringhub', 'Profile.pdf').then((data) => {
+  getItem('caringhub', 'programs.pdf').then((data) => {
     res.json(data)
   })
 })
