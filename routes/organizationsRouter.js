@@ -77,7 +77,7 @@ organizationsRouter.post('/register', upload.fields([{ name: 'logo' }, { name: '
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
     emailAddress: req.body.emailAddress,
-    address: req.body.address,
+    address: JSON.parse(req.body.address),
     mission: req.body.mission,
     legalDoc: legalDocPath ? legalDocPath : '',
     logo: logoPath ? logoPath : ''
