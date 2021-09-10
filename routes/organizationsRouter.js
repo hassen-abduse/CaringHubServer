@@ -2,7 +2,9 @@ const express = require('express')
 const Organization = require('../models/organizations')
 const organizationsRouter = express.Router()
 const passport = require('passport')
+const { getItem, upload } = require('./cos')
 organizationsRouter.use(express.json())
+
 
 organizationsRouter.route('/')
   .get((req, res, next) => {
@@ -61,30 +63,39 @@ organizationsRouter.route('/:orgId')
       .catch((err) => next(err))
   })
 
-organizationsRouter.post('/register', (req, res, next) => {
+organizationsRouter.post('/register', upload.fields([{ name: 'logo' }, { name: 'legalDoc' }]), async (req, res, next) => {
   // Register a new Organization
+  var logoPath, legalDocPath
+  await getItem('caringhub', req.files.logo[0].originalname).then((url) => {
+    logoPath = url
+  })
+  await getItem('caringhub', req.files.legalDoc[0].originalname).then((url) => {
+    legalDocPath = url
+  })
   Organization.register(new Organization({
     username: req.body.username,
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
     emailAddress: req.body.emailAddress,
     address: req.body.address,
-    mission: req.body.mission
+    mission: req.body.mission,
+    legalDoc: legalDocPath ? legalDocPath : '',
+    logo: logoPath ? logoPath : ''
 
   }),
-  req.body.password, (err, user) => {
-    if (err) {
-      res.statusCode = 500
-      res.setHeader('Content-Type', 'application/json')
-      res.json({ err: err })
-    } else {
-      passport.authenticate('org-local')(req, res, () => {
-        res.statusCode = 200
+    req.body.password, (err, user) => {
+      if (err) {
+        res.statusCode = 500
         res.setHeader('Content-Type', 'application/json')
-        res.json({ success: true, status: 'Registration Successful!' })
-      })
-    }
-  })
+        res.json({ err: err })
+      } else {
+        passport.authenticate('org-local')(req, res, () => {
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/json')
+          res.json({ success: true, status: 'Registration Successful!' })
+        })
+      }
+    })
 })
 
 module.exports = organizationsRouter
