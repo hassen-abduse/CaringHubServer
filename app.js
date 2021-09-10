@@ -1,4 +1,5 @@
 const createError = require('http-errors')
+
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
@@ -6,7 +7,7 @@ const logger = require('morgan')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const auth = require('./routes/auth')
-const {userImageUpload, volImageUpload, volResumeUpload, orgLogoUpload, projectImageUpload} = require('./routes/uploads')
+const { userImageUpload, volImageUpload, volResumeUpload, orgLogoUpload, projectImageUpload, uploadMultiple } = require('./routes/uploads')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const projectsRouter = require('./routes/projectsRouter')
@@ -17,14 +18,17 @@ const volsRouter = require('./routes/volunteersRouter')
 const causesRouter = require('./routes/causesRouter')
 const skillsRouter = require('./routes/skillsRouter')
 const { approveApp, approveOrg } = require('./routes/approval')
+const { multiPartUpload, getItem } = require('./routes/cos')
 
+//getBucketContents('caringhub')
+// multiPartUpload('caringhub', 'uploads.js', './routes/uploads.js')
 
 const dbUrl = process.env.MONGODB_URI
-const connect = mongoose.connect(dbUrl)
+//const connect = mongoose.connect(dbUrl)
 
-connect.then((db) => {
-  console.log('Succesfully Connected to the DB Server.')
-}, (err) => console.log(err))
+// connect.then((db) => {
+//   console.log('Succesfully Connected to the DB Server.')
+// }, (err) => console.log(err))
 
 const app = express()
 
@@ -57,6 +61,18 @@ app.use('/uploadUserImage', userImageUpload)
 app.use('/projectImageUpload', projectImageUpload)
 app.use('/approveOrg', approveOrg)
 app.use('/approveApp', approveApp)
+
+app.post('/testCos', uploadMultiple.single('up'), (req, res, next) => {
+  multiPartUpload('caringhub', req.file.filename, 'public/images/' + req.file.filename)
+  res.send(req.file)
+})
+
+app.get('/testCos', (req, res, next) => {
+  getItem('caringhub', 'Profile.pdf').then((data) => {
+    res.json(data)
+  })
+})
+
 
 
 app.get('/login', (req, res) => {

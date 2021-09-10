@@ -70,6 +70,7 @@ volunteersRouter.route('/:volId')
 volunteersRouter.post('/register', uploadMultiple.fields([{name: 'VolPP'}, {name: 'doc'}]), (req, res, next) => {
   const imagePath = 'https://caringhub.herokuapp.com/' + req.files.VolPP[0].path.replace(/\\/g, '/')
   const resumePath = 'https://caringhub.herokuapp.com/' + req.files.doc[0].path.replace(/\\/g, '/')
+
   Volunteer.register(new Volunteer({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -89,10 +90,11 @@ volunteersRouter.post('/register', uploadMultiple.fields([{name: 'VolPP'}, {name
         res.setHeader('Content-Type', 'application/json')
         res.json({ error: err, })
       } else {
+        
         passport.authenticate('vol-local')(req, res, () => {
           res.statusCode = 200
           res.setHeader('Content-Type', 'application/json')
-          res.json({ success: true, status: 'Registration Successful!', user_id: req.user._id })
+          res.json({ success: true, status: 'Registration Successful!' })
         })
       }
     })
