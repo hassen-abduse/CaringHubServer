@@ -85,8 +85,8 @@ volunteersRouter.post('/register', upload.fields([{ name: 'VolPP' }, { name: 'do
     phoneNumber: req.body.phoneNumber,
     emailAddress: req.body.emailAddress,
     address: JSON.parse(req.body.address),
-    skillSets: req.body.skillSets,
-    causeAreas: req.body.causeAreas
+    skillSets: JSON.parse(req.body.skillSets),
+    causeAreas: JSON.parse(req.body.causeAreas)
 
   }),
     req.body.password, (err, user) => {
