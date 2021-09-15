@@ -17,9 +17,12 @@ approveOrg.route('/')
             }
         }, { new: true })
             .then((org) => {
-                res.statusCode = 200
-                res.setHeader('Content-Type', 'application/json')
-                res.json(org)
+                Organization.find({})
+                    .then((orgs) => {
+                        res.statusCode = 200
+                        res.setHeader('Content-Type', 'application/json')
+                        res.json(orgs)
+                    })
             }, (err) => next(err))
             .catch((err) => next(err))
     })
