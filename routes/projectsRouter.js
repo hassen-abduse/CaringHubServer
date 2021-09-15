@@ -82,9 +82,14 @@ projectsRouter.route('/:projectId')
   .delete((req, res, next) => {
     Projects.findByIdAndRemove(req.params.projectId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
+        Projects.find({})
+          .then((projects) => {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.json(projects)
+          },
+            (err) => next(err))
+          .catch((err) => next(err))
       }, (err) => next(err))
       .catch((err) => next(err))
   })

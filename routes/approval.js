@@ -22,7 +22,9 @@ approveOrg.route('/')
                         res.statusCode = 200
                         res.setHeader('Content-Type', 'application/json')
                         res.json(orgs)
-                    })
+                    }
+                        , (err) => next(err))
+                    .catch((err) => next(err))
             }, (err) => next(err))
             .catch((err) => next(err))
     })

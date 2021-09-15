@@ -56,11 +56,17 @@ organizationsRouter.route('/:orgId')
     // Delete an org's Account
     Organization.findByIdAndRemove(req.params.orgId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
-      }, (err) => next(err))
-      .catch((err) => next(err))
+        Organization.find({})
+          .then((orgs) => {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.json(orgs)
+          },
+            (err) => next(err))
+          .catch((err) => next(err))
+
+  }, (err) => next(err))
+  .catch((err) => next(err))
   })
 
 organizationsRouter.post('/register', upload.fields([{ name: 'logo' }, { name: 'legalDoc' }]), async (req, res, next) => {
