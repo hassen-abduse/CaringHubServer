@@ -62,10 +62,12 @@ applicationsRouter.route('/')
       .catch((err) => next(err))
   })
 
-applicationsRouter.route('/:appId')
+applicationsRouter.route('/:volId')
   .get((req, res, next) => {
-    Applications.findById(req.params.appId)
-      .then((app) => {
+    Applications.find({volunteer: req.params.volId})
+      .populate('volunteer')
+      .populate('project')
+      .then((apps) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
         res.json(app)
