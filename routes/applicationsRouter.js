@@ -70,7 +70,7 @@ applicationsRouter.route('/:volId')
       .then((apps) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
-        res.json(app)
+        res.json(apps)
       }, (err) => next(err))
       .catch((err) => next(err))
   })
