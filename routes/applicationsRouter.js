@@ -67,6 +67,8 @@ applicationsRouter.route('/:volId')
     Applications.find({volunteer: req.params.volId})
       .populate('volunteer')
       .populate('project')
+      .populate('skillSets')
+      .populate('causeAreas')
       .then((apps) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
