@@ -13,10 +13,6 @@ applicationsRouter.route('/')
           path: 'skillSets',
           model: 'Skill'
         },
-        populate: {
-          path: 'causeAreas',
-          model: 'Cause'
-        }
       })
       .populate('project')
       .then((apps) => {
@@ -81,10 +77,6 @@ applicationsRouter.route('/:volId')
           path: 'skillSets',
           model: 'Skill'
         },
-        populate: {
-          path: 'causeAreas',
-          model: 'Cause'
-        }
       })
       .populate('project')
       .then((apps) => {
