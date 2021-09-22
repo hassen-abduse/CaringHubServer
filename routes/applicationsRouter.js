@@ -23,15 +23,15 @@ applicationsRouter.route('/')
         volunteer: req.user._id,
         project: req.body.project
       }, (err, appl) => {
-        if(appl) {
+        if (appl) {
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
-          res.statusMessage='Application Already Exists!'
+          res.statusMessage = 'Application Already Exists!'
           error = new Error('Application Already Exists!')
           next(error)
           return
         }
-        if(err) {
+        if (err) {
           next(err)
         }
         else {
@@ -42,7 +42,7 @@ applicationsRouter.route('/')
             .then((app) => {
               res.statusCode = 200
               res.setHeader('Content-Type', 'application/json')
-              res.json({app: app, statusMessage:'Success'})
+              res.json({ app: app, statusMessage: 'Success' })
             }, (err) => next(err))
             .catch((err) => next(err))
         }
@@ -64,11 +64,15 @@ applicationsRouter.route('/')
 
 applicationsRouter.route('/:volId')
   .get((req, res, next) => {
-    Applications.find({volunteer: req.params.volId})
-      .populate('volunteer')
+    Applications.find({ volunteer: req.params.volId })
+      .populate({
+        path:'volunteer',
+        populate: {
+          path:'skillSets',
+          model: 'Skill'
+        }
+      })
       .populate('project')
-      .populate('skillSets')
-      .populate('causeAreas')
       .then((apps) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
