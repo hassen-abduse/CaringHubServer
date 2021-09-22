@@ -37,9 +37,13 @@ approveApp.route('/')
             }
         }, { new: true })
             .then((app) => {
-                res.statusCode = 200
-                res.setHeader('Content-Type', 'application/json')
-                res.json(app)
+                Applications.find({})
+                    .then((apps) => {
+                        res.statusCode = 200
+                        res.setHeader('Content-Type', 'application/json')
+                        res.json(apps)
+                    }, (err) => next(err))
+                    .catch((err) => next(err))
             }, (err) => next(err))
             .catch((err) => next(err))
     })
