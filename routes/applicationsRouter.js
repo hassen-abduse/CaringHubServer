@@ -7,7 +7,17 @@ applicationsRouter.use(express.json())
 applicationsRouter.route('/')
   .get((req, res, next) => {
     Applications.find({})
-      .populate('volunteer')
+      .populate({
+        path: 'volunteer',
+        populate: {
+          path: 'skillSets',
+          model: 'Skill'
+        },
+        populate: {
+          path: 'causeAreas',
+          model: 'Cause'
+        }
+      })
       .populate('project')
       .then((apps) => {
         res.statusCode = 200
@@ -66,10 +76,14 @@ applicationsRouter.route('/:volId')
   .get((req, res, next) => {
     Applications.find({ volunteer: req.params.volId })
       .populate({
-        path:'volunteer',
+        path: 'volunteer',
         populate: {
-          path:'skillSets',
+          path: 'skillSets',
           model: 'Skill'
+        },
+        populate: {
+          path: 'causeAreas',
+          model: 'Cause'
         }
       })
       .populate('project')
