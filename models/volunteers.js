@@ -38,6 +38,7 @@ const Volunteer = new Schema({
     type: String,
     required: true
   },
+  ratings: [Object],
   skillSets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
 
   causeAreas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cause' }]
