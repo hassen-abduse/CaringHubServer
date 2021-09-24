@@ -54,7 +54,8 @@ approveApp.route('/')
 rateVolunteer.route('/')
     .put((req, res, next)=> {
         const rating = {project: req.body.projectId, value: req.body.rating}
-        Volunteer.findByIdAndUpdate(req.body.volId, {
+        const conditions = {_id: req.body.volId, 'ratings.project': { $ne: req.body.projectId}}
+        Volunteer.findOneAndUpdate(conditions, {
             $addToSet: {
                 ratings: rating
             }
