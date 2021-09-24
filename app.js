@@ -17,7 +17,7 @@ const helpsRouter = require('./routes/helpRequestsRouter')
 const volsRouter = require('./routes/volunteersRouter')
 const causesRouter = require('./routes/causesRouter')
 const skillsRouter = require('./routes/skillsRouter')
-const { approveApp, approveOrg } = require('./routes/approval')
+const { approveApp, approveOrg, rateVolunteer } = require('./routes/approval')
 const { getItem, upload } = require('./routes/cos')
 
 
@@ -59,7 +59,7 @@ app.use('/uploadUserImage', userImageUpload)
 app.use('/projectImageUpload', projectImageUpload)
 app.use('/approveOrg', approveOrg)
 app.use('/approveApp', approveApp)
-
+app.use('/rateVolunteer', rateVolunteer)
 
 
 app.get('/login', (req, res) => {
