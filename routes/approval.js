@@ -55,7 +55,7 @@ rateVolunteer.route('/')
     .put((req, res, next)=> {
         const rating = {project: req.body.projectId, value: req.body.rating}
         Volunteer.findByIdAndUpdate(req.body.volId, {
-            $push: {
+            $addToSet: {
                 ratings: rating
             }
         }, {new: true})
