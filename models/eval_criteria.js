@@ -15,5 +15,5 @@ const EvalSchema = new Schema({
   timestamps: true
 })
 
-const Evals = mongoose.model('Skill', EvalSchema)
+const Evals = mongoose.model('Evaluation', EvalSchema)
 module.exports = Evals
