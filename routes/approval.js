@@ -69,7 +69,7 @@ rateVolunteer.route('/')
 					}).then((resp) => {
 						res.statusCode = 200
 						res.setHeader('Content-Type', 'application/json')
-						res.json(resp)
+						res.json({success: true, message: 'Rating Successfully Updated!'})
 
 					}, (err) => next(err))
 						.catch((err) => next(err))
@@ -77,7 +77,7 @@ rateVolunteer.route('/')
 				else {
 					res.statusCode = 200
 					res.setHeader('Content-Type', 'application/json')
-					res.json({ success: true, message: 'Success!' })
+					res.json({ success: true, message: 'Successfully Rated!' })
 				}
 			}, (err) => next(err))
 			.catch((err) => next(err))
