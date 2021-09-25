@@ -62,14 +62,22 @@ rateVolunteer.route('/')
 		}, { new: true })
 			.then((response) => {
 				if (!response) {
-					res.statusCode = 200
-					res.setHeader('Content-Type', 'application/json')
-					res.json({success: false, message: 'Already Evaluated!'})
+					Volunteer.updateOne({ _id: req.body.volId, 'ratings.project': req.body.projectId }, {
+						'$set': {
+							'ratings.$.value': req.body.rating
+						}
+					}).then((resp) => {
+						res.statusCode = 200
+						res.setHeader('Content-Type', 'application/json')
+						res.json(resp)
+
+					}, (err) => next(err))
+						.catch((err) => next(err))
 				}
 				else {
 					res.statusCode = 200
 					res.setHeader('Content-Type', 'application/json')
-					res.json({success: true, message: 'Success!'})
+					res.json({ success: true, message: 'Success!' })
 				}
 			}, (err) => next(err))
 			.catch((err) => next(err))
