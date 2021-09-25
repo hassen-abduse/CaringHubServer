@@ -19,6 +19,7 @@ const causesRouter = require('./routes/causesRouter')
 const skillsRouter = require('./routes/skillsRouter')
 const { approveApp, approveOrg, rateVolunteer } = require('./routes/approval')
 const { getItem, upload } = require('./routes/cos')
+const evalsRouter = require('./routes/evalsRouter')
 
 
 const dbUrl = process.env.MONGODB_URI
@@ -60,6 +61,7 @@ app.use('/projectImageUpload', projectImageUpload)
 app.use('/approveOrg', approveOrg)
 app.use('/approveApp', approveApp)
 app.use('/rateVolunteer', rateVolunteer)
+app.use('/evaluations', evalsRouter)
 
 
 app.get('/login', (req, res) => {
