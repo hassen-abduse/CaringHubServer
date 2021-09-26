@@ -62,9 +62,13 @@ causesRouter.route('/:causeId')
   .delete((req, res, next) => {
     Causes.findByIdAndRemove(req.params.causeId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
+        Causes.find({})
+        .then((causes)=> {
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/json')
+          res.json(causes)
+        }, (err) => next(err))
+        .then((err) => next(err))
       }, (err) => next(err))
       .catch((err) => next(err))
   })

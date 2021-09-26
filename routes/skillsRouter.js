@@ -56,9 +56,13 @@ skillsRouter.route('/:skillId')
   .delete((req, res, next) => {
     Skills.findByIdAndRemove(req.params.skillId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
+        Skills.find({})
+          .then((skills) => {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.json(skills)
+          }, (err) => next(err))
+          .catch((err) => next(err))
       }, (err) => next(err))
       .catch((err) => next(err))
   })
