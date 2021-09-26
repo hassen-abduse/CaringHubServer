@@ -29,6 +29,10 @@ const Volunteer = new Schema({
     unique: true,
     required: true
   },
+  aboutMe: {
+    type: String,
+    default: ''
+  },
   profilePicture: {
     type: String,
     required: true
