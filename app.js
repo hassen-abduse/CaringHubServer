@@ -63,7 +63,7 @@ app.use('/approveOrg', approveOrg)
 app.use('/approveApp', approveApp)
 app.use('/rateVolunteer', rateVolunteer)
 app.use('/evaluations', evalsRouter)
-app.use('faqs', faqsRouter)
+app.use('/faqs', faqsRouter)
 
 
 app.get('/login', (req, res) => {
