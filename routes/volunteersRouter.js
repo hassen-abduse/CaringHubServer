@@ -83,6 +83,7 @@ volunteersRouter.post('/register', upload.fields([{ name: 'VolPP' }, { name: 'do
     profilePicture: imagePath ? imagePath : '',
     resume: resumePath ? resumePath : '',
     phoneNumber: req.body.phoneNumber,
+    aboutMe: req.body.aboutMe,
     emailAddress: req.body.emailAddress,
     address: JSON.parse(req.body.address),
     skillSets: JSON.parse(req.body.skillSets),
