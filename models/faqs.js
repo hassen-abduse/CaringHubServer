@@ -23,5 +23,5 @@ const faqSchema = new Schema({
   timestamps: true
 })
 
-const Faqs = mongoose.model('Faqs', skillSchema)
+const Faqs = mongoose.model('Faqs', faqSchema)
 module.exports = Faqs
