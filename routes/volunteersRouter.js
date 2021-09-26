@@ -60,9 +60,14 @@ volunteersRouter.route('/:volId')
     // delete a Volunteer's account
     Volunteer.findByIdAndRemove(req.params.volId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
+        Volunteer.find({})
+          .then((vols) => {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.json(vols)
+          },
+            (err) => next(err))
+          .catch((err) => next(err))
       }, (err) => next(err))
       .catch((err) => next(err))
   })
