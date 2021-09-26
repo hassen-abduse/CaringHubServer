@@ -56,9 +56,13 @@ evalsRouter.route('/:evalId')
   .delete((req, res, next) => {
     Evals.findByIdAndRemove(req.params.evalId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
+        Evals.find({}).
+          then((evals) => {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.json(evals)
+          }, (err) => next(err))
+          .catch((err) => next(err))
       }, (err) => next(err))
       .catch((err) => next(err))
   })
