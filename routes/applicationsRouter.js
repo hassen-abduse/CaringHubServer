@@ -15,7 +15,7 @@ applicationsRouter.route('/')
         },
       })
       .populate({
-        path:'project',
+        path: 'project',
         populate: {
           path: 'ownerOrg',
           model: 'Organization'
@@ -109,9 +109,13 @@ applicationsRouter.route('/:volId')
   .delete((req, res, next) => {
     Applications.findByIdAndRemove(req.params.appId)
       .then((resp) => {
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/json')
-        res.json(resp)
+        Applications.find({}).
+          then((apps) => {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.json(apps)
+          }, (err) => next(err))
+          .catch((err) => next(err))
       }, (err) => next(err))
       .catch((err) => next(err))
   })
