@@ -109,8 +109,22 @@ applicationsRouter.route('/:volId')
   .delete((req, res, next) => {
     Applications.findByIdAndRemove(req.params.volId)
       .then((resp) => {
-        Applications.find({}).
-          then((apps) => {
+        Applications.find({})
+        .populate({
+          path: 'volunteer',
+          populate: {
+            path: 'skillSets',
+            model: 'Skill'
+          },
+        })
+        .populate({
+          path: 'project',
+          populate: {
+            path: 'ownerOrg',
+            model: 'Organization'
+          }
+        })
+          .then((apps) => {
             res.statusCode = 200
             res.setHeader('Content-Type', 'application/json')
             res.json(apps)
