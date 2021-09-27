@@ -110,21 +110,21 @@ applicationsRouter.route('/:volId')
     Applications.findByIdAndRemove(req.params.volId)
       .then((resp) => {
         Applications.find({})
-        .populate({
-          path: 'volunteer',
-          populate: {
-            path: 'skillSets',
-            model: 'Skill'
-          },
-        })
-        .populate({
-          path: 'project',
-          populate: {
-            path: 'ownerOrg',
-            model: 'Organization'
+          .populate({
+            path: 'volunteer',
+            populate: {
+              path: 'skillSets',
+              model: 'Skill'
+            },
+          })
+          .populate({
+            path: 'project',
+            populate: {
+              path: 'ownerOrg',
+              model: 'Organization'
           }
         })
-          .then((apps) => {
+        .then((apps) => {
             res.statusCode = 200
             res.setHeader('Content-Type', 'application/json')
             res.json(apps)
