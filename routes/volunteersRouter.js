@@ -1,5 +1,6 @@
 const express = require('express')
 const Volunteer = require('../models/volunteers')
+const Applications = require('../models/applications')
 const volunteersRouter = express.Router()
 const passport = require('passport')
 const { upload, getItem } = require('./cos')
@@ -58,17 +59,22 @@ volunteersRouter.route('/:volId')
 
   .delete((req, res, next) => {
     // delete a Volunteer's account
-    Volunteer.findByIdAndRemove(req.params.volId)
-      .then((resp) => {
-        Volunteer.find({})
-          .then((vols) => {
-            res.statusCode = 200
-            res.setHeader('Content-Type', 'application/json')
-            res.json(vols)
-          },
-            (err) => next(err))
-          .catch((err) => next(err))
-      }, (err) => next(err))
+    Applications.findOneAndRemove({
+      volunteer: req.params.volId
+    }).then((resp) => {
+      Volunteer.findByIdAndRemove(req.params.volId)
+        .then((resp) => {
+          Volunteer.find({})
+            .then((vols) => {
+              res.statusCode = 200
+              res.setHeader('Content-Type', 'application/json')
+              res.json(vols)
+            },
+              (err) => next(err))
+            .catch((err) => next(err))
+        }, (err) => next(err))
+        .catch((err) => next(err))
+    }, (err) => next(err))
       .catch((err) => next(err))
   })
 
