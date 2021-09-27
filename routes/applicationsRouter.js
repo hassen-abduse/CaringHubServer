@@ -117,13 +117,6 @@ applicationsRouter.route('/:volId')
               model: 'Skill'
             },
           })
-          .populate({
-            path: 'project',
-            populate: {
-              path: 'ownerOrg',
-              model: 'Organization'
-          }
-        })
         .then((apps) => {
             res.statusCode = 200
             res.setHeader('Content-Type', 'application/json')
