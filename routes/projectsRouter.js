@@ -87,6 +87,9 @@ projectsRouter.route('/:projectId')
       Projects.findByIdAndRemove(req.params.projectId)
         .then((resp) => {
           Projects.find({})
+              .populate('ownerOrg')
+              .populate('skillSets')
+              .populate('causeAreas')
             .then((projects) => {
               res.statusCode = 200
               res.setHeader('Content-Type', 'application/json')
