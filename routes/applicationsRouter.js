@@ -107,7 +107,7 @@ applicationsRouter.route('/:volId')
   })
 
   .delete((req, res, next) => {
-    Applications.findByIdAndRemove(req.params.appId)
+    Applications.findByIdAndRemove(req.params.volId)
       .then((resp) => {
         Applications.find({}).
           then((apps) => {
