@@ -1,5 +1,6 @@
 const express = require('express')
 const Projects = require('../models/projects')
+const Applications = require('../models/applications')
 const projectsRouter = express.Router()
 const auth = require('./auth')
 const { upload, getItem } = require('./cos')
@@ -80,17 +81,22 @@ projectsRouter.route('/:projectId')
   })
 
   .delete((req, res, next) => {
-    Projects.findByIdAndRemove(req.params.projectId)
-      .then((resp) => {
-        Projects.find({})
-          .then((projects) => {
-            res.statusCode = 200
-            res.setHeader('Content-Type', 'application/json')
-            res.json(projects)
-          },
-            (err) => next(err))
-          .catch((err) => next(err))
-      }, (err) => next(err))
+    Applications.findOneAndRemove({
+      project: req.params.projectId
+    }).then((resp) => {
+      Projects.findByIdAndRemove(req.params.projectId)
+        .then((resp) => {
+          Projects.find({})
+            .then((projects) => {
+              res.statusCode = 200
+              res.setHeader('Content-Type', 'application/json')
+              res.json(projects)
+            },
+              (err) => next(err))
+            .catch((err) => next(err))
+        }, (err) => next(err))
+        .catch((err) => next(err))
+    }, (err) => next(err))
       .catch((err) => next(err))
   })
 
