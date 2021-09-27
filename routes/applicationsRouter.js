@@ -117,6 +117,7 @@ applicationsRouter.route('/:volId')
               model: 'Skill'
             },
           })
+          .populate('project')
         .then((apps) => {
             res.statusCode = 200
             res.setHeader('Content-Type', 'application/json')
