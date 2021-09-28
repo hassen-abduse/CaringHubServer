@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/users')
 const Volunteer = require('../models/volunteers')
 const Organization = require('../models/organizations')
-const jwtDecode = require('jwt-decode')
+
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const jwt = require('jsonwebtoken') // used to create, sign, and verify tokens
@@ -87,8 +87,7 @@ exports.verifyOrg = passport.authenticate('org-jwt', { session: false })
 exports.verifyVol = passport.authenticate('vol-jwt', { session: false })
 
 exports.verifyAdmin = (req, res, next) => {
-  var role = jwtDecode(req.user.token).role
-  if (role === 'Admin') {
+  if (req.user.role === 'Admin') {
     next()
   } else {
     const err = new Error('Unauthorized!')
