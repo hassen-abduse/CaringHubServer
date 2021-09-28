@@ -13,7 +13,7 @@ approveApp.use(express.json())
 rateVolunteer.use(express.json())
 
 approveOrg.route('/')
-	.put((req, res, next) => {
+	.put( auth.verifyAdmin, (req, res, next) => {
 		Organization.findByIdAndUpdate(req.body.orgId, {
 			$set: {
 				isApproved: true
